@@ -74,86 +74,96 @@ class _HomePageState extends State<HomePage> {
   Form _mainForm(BuildContext context) {
     return Form(
       key: _key,
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height / 4,
-            child: Center(
-              child: Text(S.of(context).homePageMainFormTitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+
+            CalendarDatePicker(
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2021),
+                lastDate: DateTime(2022),
+                onDateChanged: (value){
+                }
+            ),
+
+            Container(
+              child: Center(
+                child: Text(S.of(context).homePageMainFormTitle,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          TextFormField(
-            validator: (val) {
-              if (val.isEmpty) {
-                return S.of(context).formFieldRequired;
-              }
-              return null;
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: S.of(context).formFieldName,
-              hintText: S.of(context).formFieldNameHint,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            validator: (val) {
-              if (val.isEmpty) {
-                return S.of(context).formFieldRequired;
-              }
-              return null;
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: S.of(context).formFieldEmail,
-              hintText: S.of(context).formFieldEmailHint,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
+            TextFormField(
+              validator: (val) {
+                if (val.isEmpty) {
+                  return S.of(context).formFieldRequired;
+                }
+                return null;
+              },
+              decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: S.of(context).formFieldDOB),
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(DateTime.now().year),
-                lastDate: DateTime(DateTime.now().year + 20),
-              );
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          MaterialButton(
-            onPressed: () {
-              if (_key.currentState.validate()) {
-                _showSuccessDialog();
-              }
-            },
-            height: 50,
-            shape: StadiumBorder(),
-            color: Theme.of(context).primaryColor,
-            child: Center(
-              child: Text(
-                S.of(context).formFieldSubmitInfo,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                labelText: S.of(context).formFieldName,
+                hintText: S.of(context).formFieldNameHint,
               ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              validator: (val) {
+                if (val.isEmpty) {
+                  return S.of(context).formFieldRequired;
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: S.of(context).formFieldEmail,
+                hintText: S.of(context).formFieldEmailHint,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: S.of(context).formFieldDOB),
+              onTap: () async {
+                FocusScope.of(context).requestFocus(FocusNode());
+                await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(DateTime.now().year),
+                  lastDate: DateTime(DateTime.now().year + 20),
+                );
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            MaterialButton(
+              onPressed: () {
+                if (_key.currentState.validate()) {
+                  _showSuccessDialog();
+                }
+              },
+              height: 50,
+              shape: StadiumBorder(),
+              color: Theme.of(context).primaryColor,
+              child: Center(
+                child: Text(
+                  S.of(context).formFieldSubmitInfo,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
